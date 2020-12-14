@@ -2,10 +2,11 @@ pipeline {
     agent any
 
     stages {
+        
         stage ('Compile Stage') {
 
             steps {
-                withMaven(maven : 'maven_3_5_0') {
+                withMaven(maven : 'maven3.6.3') {
                     sh 'mvn clean compile'
                 }
             }
@@ -14,19 +15,22 @@ pipeline {
         stage ('Testing Stage') {
 
             steps {
-                withMaven(maven : 'maven_3_5_0') {
+                withMaven(maven : 'maven3.6.3') {
                     sh 'mvn test'
                 }
             }
-        }
-
-
-        stage ('Deployment Stage') {
-            steps {
-                withMaven(maven : 'maven_3_5_0') {
-                    sh 'mvn deploy'
+            post {
+                always {
+                   junit 'target/surefire-reports/**/*.xml'
                 }
             }
         }
+        
+        stage('Code Quality Analysis') {
+            steps {
+               sh " mvn sonar:sonar -Dsonar.host.url=http://54.227.159.19:9000"
+            }
+        }
+
     }
 }
