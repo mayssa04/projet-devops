@@ -24,6 +24,8 @@ pipeline {
         post {
             always {
                archiveArtifacts artifacts: 'target/**/*'
+            }
+        }
         }
 
         stage ('Testing Stage') {
