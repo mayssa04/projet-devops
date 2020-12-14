@@ -21,11 +21,6 @@ pipeline {
                     sh 'mvn clean compile'
                 }
             }
-            post {
-                always {
-                    archiveArtifacts artifacts: 'build/libs/**/*.jar'
-                }
-            }
         
         }
 
