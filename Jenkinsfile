@@ -21,7 +21,9 @@ pipeline {
                     sh 'mvn clean compile'
                 }
             }
-        
+        post {
+            always {
+               archiveArtifacts artifacts: 'target/**/*'
         }
 
         stage ('Testing Stage') {
