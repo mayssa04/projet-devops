@@ -25,5 +25,12 @@ pipeline {
                 }
             }
         }
+        
+        stage('Code Quality Analysis') {
+            steps {
+               sh " mvn sonar:sonar -Dsonar.host.url=http://54.227.159.19:9000"
+            }
+        }
+
     }
 }
