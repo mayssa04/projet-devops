@@ -2,15 +2,11 @@ pipeline {
     agent any
 
     stages {
-        stage('SCM') {
-            steps {
-                checkout scm
-                }
-            }
+        
         stage ('Compile Stage') {
 
             steps {
-                withMaven(maven : 'maven_3_5_0') {
+                withMaven(maven : 'maven3.6.3') {
                     sh 'mvn clean compile'
                 }
             }
@@ -19,7 +15,7 @@ pipeline {
         stage ('Testing Stage') {
 
             steps {
-                withMaven(maven : 'maven_3_5_0') {
+                withMaven(maven : 'maven3.6.3') {
                     sh 'mvn test'
                 }
             }
