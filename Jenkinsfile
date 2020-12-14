@@ -21,6 +21,12 @@ pipeline {
                     sh 'mvn clean compile'
                 }
             }
+            post {
+                always {
+                    archiveArtifacts artifacts: 'build/libs/**/*.jar'
+                }
+            }
+        
         }
 
         stage ('Testing Stage') {
@@ -38,11 +44,7 @@ pipeline {
                sh " mvn sonar:sonar -Dsonar.host.url=http://54.227.159.19:9000"
             }
         }
-        post {
-        always {
-            archiveArtifacts artifacts: 'build/libs/**/*.jar'
-        }
-        }
+        
         stage(' Build Docker image') {
             steps {
                 echo 'Building....'
